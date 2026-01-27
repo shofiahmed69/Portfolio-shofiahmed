@@ -1,0 +1,264 @@
+:root {
+  --background: #020617;
+  --foreground: #f1f5f9;
+  --accent: #38bdf8;
+  --accent-secondary: #818cf8;
+  --accent-neon: #0ea5e9;
+  --glass: rgba(15, 23, 42, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --neon-glow: 0 0 15px rgba(56, 189, 248, 0.3), 0 0 30px rgba(56, 189, 248, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+  width: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Dynamic Lighting Background */
+.hero-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background: radial-gradient(circle at 50% 50%, #0f172a 0%, #020617 100%);
+}
+
+.blob {
+  position: absolute;
+  width: min(700px, 90vw);
+  height: min(700px, 90vw);
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.1) 0%, transparent 70%);
+  filter: blur(80px);
+  border-radius: 50%;
+  animation: float 25s infinite alternate ease-in-out;
+}
+
+.blob-1 {
+  top: -10%;
+  left: -10%;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, transparent 70%);
+}
+
+.blob-2 {
+  bottom: -10%;
+  right: -10%;
+  background: radial-gradient(circle, rgba(129, 140, 248, 0.08) 0%, transparent 70%);
+  animation-delay: -7s;
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate(30px, 50px) scale(1.05);
+  }
+
+  66% {
+    transform: translate(-20px, 40px) scale(0.98);
+  }
+
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes neon-pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.2), 0 0 30px rgba(56, 189, 248, 0.05);
+    border-color: rgba(56, 189, 248, 0.15);
+  }
+
+  50% {
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.4), 0 0 50px rgba(56, 189, 248, 0.2);
+    border-color: rgba(56, 189, 248, 0.4);
+  }
+}
+
+.neon-border {
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  animation: neon-pulse 4s infinite ease-in-out;
+}
+
+.container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 min(5vw, 2.5rem);
+  width: 100%;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
+  display: inline-block;
+}
+
+.glass-card {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(56, 189, 248, 0.3);
+  box-shadow: 0 20px 40px -15px rgba(0, 4, 15, 0.8);
+}
+
+.section-title {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  text-align: center;
+  margin-bottom: clamp(4rem, 12vw, 8rem);
+  letter-spacing: -0.05em;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+button.primary {
+  background: linear-gradient(135deg, #0ea5e9, #6366f1);
+  color: white;
+  padding: clamp(1rem, 2vw, 1.25rem) clamp(2rem, 4vw, 2.75rem);
+  border-radius: 16px;
+  border: none;
+  font-weight: 700;
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  cursor: pointer;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 0 10px 30px -10px rgba(14, 165, 233, 0.6);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+button.primary:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 20px 50px -12px rgba(14, 165, 233, 0.7), 0 0 30px rgba(14, 165, 233, 0.4);
+}
+
+section {
+  padding: clamp(5rem, 15vh, 12rem) 0;
+}
+
+.nav-link {
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  padding: 0.8rem 1.8rem;
+  border-radius: 14px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-social {
+  text-decoration: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255, 255, 255, 0.02) !important;
+  padding: 1.2rem 2.8rem !important;
+  font-size: 1.1rem !important;
+  font-weight: 800 !important;
+  color: #ffffff !important;
+  border-radius: 20px !important;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 1rem !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+}
+
+.btn-github:hover {
+  background: linear-gradient(135deg, #ff0080, #7928ca) !important;
+  border-color: rgba(255, 0, 128, 0.5) !important;
+  box-shadow: 0 0 35px rgba(255, 0, 128, 0.6), 0 0 70px rgba(121, 40, 202, 0.3) !important;
+  transform: translateY(-8px) scale(1.05) !important;
+  color: #fff !important;
+}
+
+.btn-linkedin:hover {
+  background: linear-gradient(135deg, #007cf0, #00dfd8) !important;
+  border-color: rgba(0, 124, 240, 0.5) !important;
+  box-shadow: 0 0 35px rgba(0, 124, 240, 0.6), 0 0 70px rgba(0, 223, 216, 0.3) !important;
+  transform: translateY(-8px) scale(1.05) !important;
+  color: #fff !important;
+}
+
+.nav-link:visited {
+  color: inherit !important;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .grid-container {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1.25rem;
+  }
+}
+
+/* Professional Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 10px;
+}
