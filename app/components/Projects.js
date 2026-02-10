@@ -29,21 +29,41 @@ export default function Projects() {
                 <h2 className="section-title">Latest <span className="gradient-text">Projects</span></h2>
 
                 {loading ? (
-                    <div style={{ textAlign: 'center', padding: '4rem' }}>Loading awesome projects...</div>
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        style={{ textAlign: 'center', padding: '4rem' }}
+                    >
+                        <motion.span
+                            animate={{ opacity: [0.5, 1, 0.5] }}
+                            transition={{ duration: 1.5, repeat: Infinity }}
+                        >
+                            Loading awesome projects...
+                        </motion.span>
+                    </motion.div>
                 ) : (
-                    <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))',
-                        gap: '2rem',
-                        width: '100%'
-                    }}>
+                    <motion.div
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: '-80px' }}
+                        variants={{
+                            visible: { transition: { staggerChildren: 0.08, delayChildren: 0.15 } },
+                            hidden: {}
+                        }}
+                        style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))',
+                            gap: '2rem',
+                            width: '100%'
+                        }}
+                    >
                         {repos.map((repo, index) => (
                             <motion.div
                                 key={repo.id}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.05 }}
+                                variants={{
+                                    hidden: { opacity: 0, y: 50 },
+                                    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.23, 1, 0.32, 1] } }
+                                }}
                                 className="glass-card"
                                 style={{
                                     padding: 'clamp(1.25rem, 5vw, 2.5rem)',
@@ -52,6 +72,7 @@ export default function Projects() {
                                     height: '100%',
                                     border: '1px solid var(--glass-border)'
                                 }}
+                                whileHover={{ y: -10, transition: { duration: 0.3 } }}
                             >
                                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.5rem', alignItems: 'center' }}>
                                     <div style={{
@@ -100,7 +121,7 @@ export default function Projects() {
                                 </div>
                             </motion.div>
                         ))}
-                    </div>
+                    </motion.div>
                 )}
             </div>
         </section>

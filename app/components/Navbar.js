@@ -2,36 +2,60 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 
+const navItems = [
+  { href: '#skills', label: 'Skills' },
+  { href: '#projects', label: 'Projects' },
+  { href: '#contact', label: 'Contact' }
+]
+
 export default function Navbar() {
     return (
+        <div className="navbar-wrap">
         <motion.nav
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
-            style={{
-                position: 'fixed',
-                top: '0.75rem',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                width: 'fit-content', // Changed from min(92%, 1100px)
-                zIndex: 100,
-                padding: '0.6rem 1.5rem', // Slightly more compact padding
-                background: 'rgba(2, 6, 23, 0.7)',
-                backdropFilter: 'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)',
-                borderRadius: '50px', // More rounded for pill shape
-                border: '1px solid var(--glass-border)',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                boxShadow: '0 20px 50px rgba(0, 0, 0, 0.4), 0 0 20px rgba(56, 189, 248, 0.05)'
-            }}
+            className="navbar-pill"
         >
-            <div style={{ display: 'flex', gap: '1rem' }}>
-                <Link href="#skills" className="nav-link">Skills</Link>
-                <Link href="#projects" className="nav-link">Projects</Link>
-                <Link href="#contact" className="nav-link">Contact</Link>
+            <div style={{ display: 'flex', gap: '0.5rem' }}>
+                {navItems.map((item, i) => (
+                    <motion.div
+                        key={item.href}
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 + i * 0.1, duration: 0.5 }}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.98 }}
+                    >
+                        <Link href={item.href} className="nav-link nav-link-animated">
+                            <span className="nav-link-text">{item.label}</span>
+                            <motion.span
+                                className="nav-link-underline"
+                                initial={{ scaleX: 0 }}
+                                whileHover={{ scaleX: 1 }}
+                                transition={{ duration: 0.3 }}
+                            />
+                        </Link>
+                    </motion.div>
+                ))}
             </div>
+            <style jsx>{`
+                .nav-link-animated {
+                    position: relative;
+                    display: inline-block;
+                }
+                .nav-link-underline {
+                    position: absolute;
+                    bottom: 4px;
+                    left: 0;
+                    right: 0;
+                    height: 2px;
+                    background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+                    border-radius: 2px;
+                    transform-origin: left;
+                }
+            `}</style>
         </motion.nav>
+        </div>
     )
 }

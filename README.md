@@ -32,6 +32,39 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Firebase
+## Deploy on Firebase (production – permanent URL)
 
-The app is configured to deploy to Firebase Hosting.
+This project is configured for the site **portfolio-kazi-shofi-ahmed**. Use **your own** Firebase project.
+
+### 1. Create or choose a Firebase project
+
+1. Open [Firebase Console](https://console.firebase.google.com)
+2. **Create a project** (e.g. “Portfolio” or “portfolio-kazi-shofi”) or select an existing one
+3. Note the **Project ID** (e.g. `my-portfolio-abc123`)
+
+### 2. Link this folder to your project
+
+In the project folder, run:
+
+```bash
+firebase use --add
+```
+
+Pick your project from the list and (if asked) give it an alias like `default`. This updates `.firebaserc` with your project ID.
+
+### 3. Create the Hosting site (one-time)
+
+1. In [Firebase Console](https://console.firebase.google.com) → **your project** → **Build** → **Hosting**
+2. If Hosting isn’t set up, click **Get started** and finish the steps
+3. Click **Add another site** and use site ID: **portfolio-kazi-shofi-ahmed** → Create
+
+### 4. Deploy
+
+```bash
+npm run deploy
+```
+
+Your site will be at **https://portfolio-kazi-shofi-ahmed.web.app** (or your project’s domain). The URL is permanent.
+
+**If you get “404 – Requested entity was not found”**  
+The site **portfolio-kazi-shofi-ahmed** doesn’t exist yet in the project you’re using. Complete step 3 above, then run `npm run deploy` again.

@@ -1,6 +1,6 @@
 {
     "hosting": {
-        "site": "portfolio-shofiahmed",
+        "site": "portfolio-kazi-shofi-ahmed",
         "public": "out",
         "ignore": [
             "firebase.json",

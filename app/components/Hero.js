@@ -1,6 +1,5 @@
 'use client'
 import { motion } from 'framer-motion'
-import Image from 'next/image'
 
 export default function Hero() {
     const containerVariants = {
@@ -22,12 +21,13 @@ export default function Hero() {
     return (
         <section id="about" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', position: 'relative' }}>
             <div className="container">
-                <div className="grid-container hero-grid" style={{ alignItems: 'center' }}>
+                <div className="grid-container hero-grid hero-grid-desktop" style={{ alignItems: 'center' }}>
                     <motion.div
                         variants={containerVariants}
                         initial="hidden"
                         animate="visible"
                         className="hero-content"
+                        style={{ gridColumn: '1 / 8' }}
                     >
                         <motion.div variants={itemVariants} className="developer-tag" style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
                             <span style={{ width: '40px', height: '1px', background: 'var(--accent)' }} />
@@ -63,43 +63,53 @@ export default function Hero() {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1], delay: 0 }}
                         className="hero-visual"
-                        style={{ position: 'relative' }}
+                        style={{ position: 'relative', gridColumn: '8 / -1', minWidth: 0 }}
                     >
-                        <div style={{
-                            position: 'absolute',
-                            inset: '-20px',
-                            background: 'radial-gradient(circle, var(--accent) 0%, transparent 70%)',
-                            opacity: 0.15,
-                            filter: 'blur(40px)',
-                            zIndex: -1
-                        }} />
+                        <motion.div
+                            animate={{ opacity: [0.1, 0.25, 0.1], scale: [1, 1.1, 1] }}
+                            transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+                            style={{
+                                position: 'absolute',
+                                inset: '-20px',
+                                background: 'radial-gradient(circle, var(--accent) 0%, transparent 70%)',
+                                filter: 'blur(40px)',
+                                zIndex: -1
+                            }}
+                        />
 
-                        <div className="neon-border" style={{
+                        <motion.div
+                            animate={{ y: [0, -12, 0] }}
+                            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+                            className="neon-border hero-profile-wrap" style={{
                             borderRadius: '40px',
                             padding: '12px',
                             background: 'var(--glass)',
                             backdropFilter: 'blur(15px)',
                             maxWidth: '420px',
+                            minWidth: '280px',
                             width: '100%',
                             position: 'relative',
                             boxShadow: '0 0 40px rgba(14, 165, 233, 0.25), inset 0 0 20px rgba(14, 165, 233, 0.1)'
                         }}>
-                            <Image
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
                                 src="/profile.jpg"
                                 alt="Kazi Shofi Ahmed"
                                 width={420}
                                 height={540}
-                                priority
+                                loading="eager"
+                                decoding="sync"
                                 style={{
                                     borderRadius: '30px',
                                     objectFit: 'cover',
                                     width: '100%',
                                     height: 'auto',
+                                    minHeight: '320px',
                                     display: 'block',
                                     filter: 'contrast(1.05) brightness(1.05)'
                                 }}
                             />
-                        </div>
+                        </motion.div>
                     </motion.div>
                 </div>
             </div>
@@ -110,12 +120,10 @@ export default function Hero() {
                 }
                 
                 .hero-content {
-                    grid-column: 1 / 8;
                     text-align: left;
                 }
                 
                 .hero-visual {
-                    grid-column: 8 / -1;
                     display: flex;
                     justify-content: flex-end;
                     align-items: center;

@@ -32,19 +32,28 @@ export default function Skills() {
                     <h2 className="section-title">Technical <span className="gradient-text">Expertise</span></h2>
                 </motion.div>
 
-                <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))',
-                    gap: '1.5rem',
-                    width: '100%'
-                }}>
+                <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: '-50px' }}
+                    variants={{
+                        visible: { transition: { staggerChildren: 0.06, delayChildren: 0.1 } },
+                        hidden: {}
+                    }}
+                    style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))',
+                        gap: '1.5rem',
+                        width: '100%'
+                    }}
+                >
                     {skills.map((skill, index) => (
                         <motion.div
                             key={skill.name}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: index * 0.05 }}
+                            variants={{
+                                hidden: { opacity: 0, y: 40, scale: 0.9 },
+                                visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: [0.23, 1, 0.32, 1] } }
+                            }}
                             className="glass-card"
                             style={{
                                 padding: '2rem 1rem',
@@ -56,9 +65,10 @@ export default function Skills() {
                                 border: `1px solid rgba(255, 255, 255, 0.05)`
                             }}
                             whileHover={{
-                                scale: 1.05,
+                                scale: 1.08,
+                                y: -6,
                                 borderColor: skill.color + '50',
-                                boxShadow: `0 10px 30px -10px ${skill.color}30`
+                                boxShadow: `0 20px 40px -15px ${skill.color}40, 0 0 25px ${skill.color}20`
                             }}
                         >
                             <div style={{
@@ -94,7 +104,7 @@ export default function Skills() {
                             </span>
                         </motion.div>
                     ))}
-                </div>
+                </motion.div>
             </div>
         </section>
     )

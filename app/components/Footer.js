@@ -23,16 +23,41 @@ export default function Footer() {
                         I'm currently looking for new opportunities and collaborations.
                     </p>
 
-                    <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap' }}>
-                        <a href="https://github.com/shofiahmed69" target="_blank" rel="noopener noreferrer" className="nav-link btn-social btn-github">
+                    <motion.div
+                        style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap' }}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={{
+                            visible: { transition: { staggerChildren: 0.15 } },
+                            hidden: {}
+                        }}
+                    >
+                        <motion.a
+                            href="https://github.com/shofiahmed69"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="nav-link btn-social btn-github"
+                            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.98 }}
+                        >
                             <Github size={20} />
                             GitHub
-                        </a>
-                        <a href="https://www.linkedin.com/in/shofi-ahmed-sh351" target="_blank" rel="noopener noreferrer" className="nav-link btn-social btn-linkedin">
+                        </motion.a>
+                        <motion.a
+                            href="https://www.linkedin.com/in/shofi-ahmed-sh351"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="nav-link btn-social btn-linkedin"
+                            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.98 }}
+                        >
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
                             LinkedIn
-                        </a>
-                    </div>
+                        </motion.a>
+                    </motion.div>
                 </motion.div>
 
                 <p style={{ marginTop: '6rem', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
