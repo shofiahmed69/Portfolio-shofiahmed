@@ -1,5 +1,9 @@
 'use client'
+
 import { motion } from 'framer-motion'
+import dynamic from 'next/dynamic'
+
+const Hero3DWrapper = dynamic(() => import('./three/Hero3DWrapper'), { ssr: false })
 
 export default function Hero() {
     const containerVariants = {
@@ -19,8 +23,10 @@ export default function Hero() {
     }
 
     return (
-        <section id="about" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', position: 'relative' }}>
-            <div className="container">
+        <section id="about" className="hero-section" style={{ minHeight: '100vh', minHeight: '100dvh', display: 'flex', alignItems: 'center', position: 'relative' }}>
+            {/* 3D background (lazy-loaded; hidden on mobile / reduced-motion per PRD) */}
+            <Hero3DWrapper />
+            <div className="container hero-content-wrapper" style={{ position: 'relative', zIndex: 1, width: '100%' }}>
                 <div className="grid-container hero-grid hero-grid-desktop" style={{ alignItems: 'center' }}>
                     <motion.div
                         variants={containerVariants}
@@ -51,7 +57,7 @@ export default function Hero() {
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
                             </button>
 
-                            <a href="#contact" onClick={(e) => { e.preventDefault(); document.getElementById('contact').scrollIntoView({ behavior: 'smooth' }); }} style={{ color: 'var(--text-primary)', textDecoration: 'none', fontWeight: 600, fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem', transition: 'all 0.3s ease' }} className="hover-link">
+                            <a href="#contact" onClick={(e) => { e.preventDefault(); document.getElementById('contact').scrollIntoView({ behavior: 'smooth' }); }} style={{ color: 'var(--text-primary)', textDecoration: 'none', fontWeight: 600, fontSize: '1rem', display: 'inline-flex', alignItems: 'center', gap: '0.5rem', transition: 'all 0.3s ease', minHeight: 44, minWidth: 44 }} className="hover-link">
                                 Get in touch
                                 <span style={{ width: '12px', height: '12px', borderRadius: '50%', background: 'var(--accent)', display: 'inline-block' }} />
                             </a>
@@ -114,6 +120,9 @@ export default function Hero() {
                 </div>
             </div>
             <style jsx>{`
+                .hero-section {
+                    isolation: isolate;
+                }
                 .hover-link:hover {
                     color: var(--accent) !important;
                     transform: translateX(5px);
@@ -137,12 +146,23 @@ export default function Hero() {
                 }
 
                 @media (max-width: 1024px) {
+                    .hero-section {
+                        min-height: 100vh;
+                        min-height: 100dvh;
+                        align-items: center;
+                        padding-top: 0.35rem !important;
+                        padding-bottom: 0.35rem !important;
+                    }
+                    .hero-content-wrapper {
+                        padding-top: 0 !important;
+                        padding-bottom: 0 !important;
+                    }
                     .hero-grid {
                         display: flex !important;
                         flex-direction: column-reverse !important;
-                        gap: 1rem !important;
-                        padding-top: 1rem !important;
-                        padding-bottom: 1rem !important;
+                        gap: 0.35rem !important;
+                        padding-top: 0 !important;
+                        padding-bottom: 0 !important;
                     }
 
                     .hero-content {
@@ -151,45 +171,45 @@ export default function Hero() {
                         display: flex;
                         flex-direction: column;
                         align-items: center;
-                        margin-bottom: 1rem;
+                        margin-bottom: 0 !important;
                     }
                     
                     .hero-visual {
                         grid-column: span 12 !important;
                         justify-self: center !important;
-                        margin-bottom: 0.5rem;
+                        margin-bottom: 0.2rem !important;
                         width: 100%;
                         justify-content: center;
                     }
                     
                     .neon-border {
-                        max-width: 200px !important;
+                        max-width: 140px !important;
                         margin: 0 auto;
                         animation: neon-pulse 4s infinite ease-in-out, floating 6s ease-in-out infinite !important;
                     }
 
                     .developer-tag {
                         justify-content: center !important;
-                        margin-bottom: 0.75rem !important;
+                        margin-bottom: 0.25rem !important;
                         transform: scale(0.9);
                     }
                     
                     h1 {
-                        margin-bottom: 0.75rem !important;
-                        font-size: 2.25rem !important;
+                        margin-bottom: 0.25rem !important;
+                        font-size: 1.9rem !important;
                         line-height: 1.1 !important;
                     }
                     
-                    p {
-                        margin-bottom: 1.25rem !important;
-                        font-size: 0.95rem !important;
+                    .hero-content p {
+                        margin-bottom: 0.4rem !important;
+                        font-size: 0.9rem !important;
                         max-width: 90% !important;
                     }
 
                     .cta-group {
                         justify-content: center !important;
                         width: 100%;
-                        gap: 1rem !important;
+                        gap: 0.5rem !important;
                     }
 
                     p {
@@ -198,19 +218,99 @@ export default function Hero() {
                     }
                 }
 
+                /* Mobile: fit hero + Explore/Get in touch in one viewport without scrolling */
                 @media (max-width: 480px) {
+                    .hero-section {
+                        padding-top: 0.5rem !important;
+                        padding-bottom: 0.5rem !important;
+                        min-height: 100dvh !important;
+                        align-items: center !important;
+                    }
+                    .hero-content-wrapper {
+                        padding-top: 0 !important;
+                        padding-bottom: 0 !important;
+                    }
+                    .hero-grid {
+                        gap: 0.25rem !important;
+                        padding-top: 0 !important;
+                    }
                     .neon-border {
-                        max-width: 180px !important;
+                        max-width: 88px !important;
+                        min-width: 72px !important;
+                        padding: 6px !important;
                     }
-
+                    .neon-border img {
+                        min-height: 96px !important;
+                    }
+                    .developer-tag {
+                        margin-bottom: 0.2rem !important;
+                        font-size: 0.65rem !important;
+                    }
+                    .developer-tag span:first-of-type {
+                        width: 20px !important;
+                    }
+                    h1 {
+                        font-size: 1.4rem !important;
+                        margin-bottom: 0.2rem !important;
+                        line-height: 1.12 !important;
+                    }
+                    .hero-content p {
+                        font-size: 0.8rem !important;
+                        margin-bottom: 0.35rem !important;
+                        line-height: 1.4 !important;
+                        display: -webkit-box !important;
+                        -webkit-line-clamp: 2 !important;
+                        -webkit-box-orient: vertical !important;
+                        overflow: hidden !important;
+                    }
                     .cta-group {
-                        flex-direction: column;
-                        gap: 0.75rem !important;
+                        flex-direction: row;
+                        flex-wrap: wrap;
+                        justify-content: center;
+                        gap: 0.4rem !important;
+                        margin-top: 0.15rem !important;
                     }
-                    
                     button.primary {
-                        width: 100%;
-                        padding: 0.8rem 1.5rem;
+                        width: auto;
+                        padding: 0.5rem 0.85rem;
+                        font-size: 0.8rem;
+                    }
+                }
+
+                /* Short viewports: extra compact so Explore + Get in touch fit without scroll */
+                @media (max-width: 1024px) and (max-height: 800px) {
+                    .hero-section {
+                        padding-top: 0.25rem !important;
+                        padding-bottom: 0.25rem !important;
+                    }
+                    .hero-grid {
+                        gap: 0.2rem !important;
+                    }
+                    .neon-border {
+                        max-width: 100px !important;
+                        padding: 6px !important;
+                    }
+                    .neon-border img {
+                        min-height: 88px !important;
+                    }
+                    .developer-tag {
+                        margin-bottom: 0.15rem !important;
+                    }
+                    h1 {
+                        font-size: 1.35rem !important;
+                        margin-bottom: 0.15rem !important;
+                    }
+                    .hero-content p {
+                        font-size: 0.78rem !important;
+                        margin-bottom: 0.25rem !important;
+                        -webkit-line-clamp: 2 !important;
+                    }
+                    .cta-group {
+                        gap: 0.35rem !important;
+                    }
+                    button.primary {
+                        padding: 0.5rem 0.8rem;
+                        font-size: 0.78rem;
                     }
                 }
             `}</style>

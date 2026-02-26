@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion'
 import {
     Code2, Database, Globe, Cpu, Smartphone,
-    Layers, Zap, Terminal, Brain, Palette, FileCode
+    Layers, Zap, Terminal, Brain, Palette, FileCode, Box
 } from 'lucide-react'
 
 const skills = [
@@ -10,6 +10,7 @@ const skills = [
     { name: 'Python', icon: <FileCode size={24} />, color: '#3776ab' },
     { name: 'Next.js', icon: <Globe size={24} />, color: '#ffffff' },
     { name: 'Node.js', icon: <Cpu size={24} />, color: '#339933' },
+    { name: 'NestJS', icon: <Box size={24} />, color: '#E0234E' },
     { name: 'React.js', icon: <Zap size={24} />, color: '#61dafb' },
     { name: 'Express.js', icon: <Layers size={24} />, color: '#ffffff' },
     { name: 'Firebase', icon: <Database size={24} />, color: '#ffca28' },

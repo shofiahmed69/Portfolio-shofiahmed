@@ -42,6 +42,9 @@ yarn-error.log*
 .firebase/
 .firebaserc
 
+# Cloud Functions (optional; contains node_modules; use Blaze plan to deploy)
+/functions/
+
 # Credentials and secrets
 *.pem
 *credentials*.json

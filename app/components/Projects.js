@@ -3,24 +3,56 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { ExternalLink, Github, Star } from 'lucide-react'
 
+const GITHUB_USER = 'shofiahmed69'
+const REPOS_API = `https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&per_page=100&type=all`
+
+// Fallback when API fails or returns empty (e.g. rate limit)
+const FALLBACK_REPOS = [
+    { id: 1, name: 'Portfolio-shofiahmed', description: 'Personal portfolio site built with Next.js, 3D animations & Firebase.', html_url: `https://github.com/${GITHUB_USER}/Portfolio-shofiahmed`, homepage: 'https://portfolio-kazi-shofi-ahmed.web.app', language: 'JavaScript', stargazers_count: 0, fork: false }
+]
+
+function getGitHubHeaders() {
+    const token = typeof process !== 'undefined' && process.env.NEXT_PUBLIC_GITHUB_TOKEN
+    return {
+        Accept: 'application/vnd.github.v3+json',
+        ...(token && { Authorization: `Bearer ${token}` })
+    }
+}
+
 export default function Projects() {
     const [repos, setRepos] = useState([])
     const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(null)
 
-    useEffect(() => {
-        fetch('https://api.github.com/users/shofiahmed69/repos?sort=updated&per_page=100')
-            .then(res => res.json())
-            .then(data => {
-                if (Array.isArray(data)) {
-                    // Filter out forks if desired, or just show all as requested
-                    setRepos(data.filter(repo => !repo.fork))
+    const fetchRepos = () => {
+        setLoading(true)
+        setError(null)
+        fetch(REPOS_API, { headers: getGitHubHeaders() })
+            .then(res => res.json().then(data => ({ ok: res.ok, status: res.status, data })))
+            .then(({ ok, status, data }) => {
+                if (ok && Array.isArray(data)) {
+                    // Show all repos (originals first, then forks)
+                    const nonForks = data.filter(repo => !repo.fork)
+                    const list = nonForks.length > 0 ? nonForks : data
+                    setRepos(list.length > 0 ? list : FALLBACK_REPOS)
+                } else if (Array.isArray(data)) {
+                    setRepos(data.length > 0 ? data : FALLBACK_REPOS)
+                } else {
+                    setError(data?.message || `GitHub API ${status}`)
+                    setRepos(FALLBACK_REPOS)
                 }
                 setLoading(false)
             })
             .catch(err => {
                 console.error(err)
+                setError(err.message || 'Failed to load projects')
+                setRepos(FALLBACK_REPOS)
                 setLoading(false)
             })
+    }
+
+    useEffect(() => {
+        fetchRepos()
     }, [])
 
     return (
@@ -41,10 +73,50 @@ export default function Projects() {
                             Loading awesome projects...
                         </motion.span>
                     </motion.div>
+                ) : repos.length === 0 ? (
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        style={{
+                            textAlign: 'center',
+                            padding: '3rem 1.5rem',
+                            background: 'var(--glass)',
+                            border: '1px solid var(--glass-border)',
+                            borderRadius: '24px'
+                        }}
+                    >
+                        <Github size={48} color="var(--text-muted)" style={{ marginBottom: '1rem' }} />
+                        <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem' }}>
+                            {error ? 'Couldn\'t load projects from GitHub. Try again later.' : 'No public repositories yet.'}
+                        </p>
+                        <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+                            <button type="button" className="primary" onClick={fetchRepos} style={{ margin: 0 }}>
+                                Retry
+                            </button>
+                            <a
+                                href={`https://github.com/${GITHUB_USER}?tab=repositories`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: '0.5rem',
+                                    padding: '0.75rem 1.5rem',
+                                    borderRadius: '12px',
+                                    border: '1px solid var(--glass-border)',
+                                    color: 'var(--text-primary)',
+                                    textDecoration: 'none',
+                                    fontWeight: 600
+                                }}
+                            >
+                                <Github size={20} /> View on GitHub
+                            </a>
+                        </div>
+                    </motion.div>
                 ) : (
                     <motion.div
                         initial="hidden"
-                        whileInView="visible"
+                        animate="visible"
                         viewport={{ once: true, margin: '-80px' }}
                         variants={{
                             visible: { transition: { staggerChildren: 0.08, delayChildren: 0.15 } },

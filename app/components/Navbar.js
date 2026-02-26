@@ -17,7 +17,7 @@ export default function Navbar() {
             transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
             className="navbar-pill"
         >
-            <div className="navbar-links" style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'center', minWidth: 0 }}>
+            <div className="navbar-links" style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'center', minWidth: 0, width: '100%' }}>
                 {navItems.map((item, i) => (
                     <motion.div
                         key={item.href}

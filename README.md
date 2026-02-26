@@ -32,6 +32,21 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
+## Security – keep secrets out of the repo
+
+- **Never commit** `.env.local` or any file containing `NEXT_PUBLIC_GITHUB_TOKEN`, API keys, or passwords. They are already in `.gitignore`.
+- Use `.env.example` as a template only (no real values). Copy to `.env.local` locally and add your token there.
+
+## Show all GitHub repos (Projects section)
+
+The Projects section loads repos from the GitHub API. Unauthenticated requests are limited to **60/hour**, so you may see only a fallback project. To show **all your repos**:
+
+1. Create a [GitHub Personal Access Token](https://github.com/settings/tokens) with scope `public_repo` (or fine-grained, read-only public repos).
+2. Copy `.env.example` to `.env.local` and set `NEXT_PUBLIC_GITHUB_TOKEN=your_token`.
+3. Rebuild and deploy: `npm run build && firebase deploy --only hosting`.
+
+If you use Firebase Hosting build (e.g. GitHub Actions), add `NEXT_PUBLIC_GITHUB_TOKEN` as a secret and pass it to the build step.
+
 ## Deploy on Firebase (production – permanent URL)
 
 This project is configured for the site **portfolio-kazi-shofi-ahmed**. Use **your own** Firebase project.

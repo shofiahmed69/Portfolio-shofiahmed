@@ -1,6 +1,5 @@
 'use client'
 import { motion } from 'framer-motion'
-import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Skills from './components/Skills'
 import Projects from './components/Projects'
@@ -18,7 +17,6 @@ const sectionVariants = {
 export default function Home() {
   return (
     <main>
-      <Navbar />
       <motion.div
         initial="hidden"
         animate="visible"
