@@ -35,9 +35,8 @@ export default function Home() {
       </motion.div>
 
       <motion.div
-        initial={sectionInitial}
-        whileInView={sectionAnimate}
-        viewport={viewport}
+        initial={{ opacity: 0, y: 32 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={sectionTransition}
       >
         <Projects />

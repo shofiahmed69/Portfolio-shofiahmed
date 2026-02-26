@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { ExternalLink, Github, Star } from 'lucide-react'
 
@@ -23,12 +23,14 @@ export default function Projects() {
     const [repos, setRepos] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
+    const fetched = useRef(false)
 
     const fetchRepos = () => {
+        fetched.current = false
         setLoading(true)
         setError(null)
         const controller = new AbortController()
-        const timeout = setTimeout(() => controller.abort(), 12000)
+        const timeout = setTimeout(() => controller.abort(), 8000)
         fetch(REPOS_API, { headers: getGitHubHeaders(), signal: controller.signal })
             .then(res => res.json().then(data => ({ ok: res.ok, status: res.status, data })))
             .then(({ ok, status, data }) => {
@@ -43,6 +45,7 @@ export default function Projects() {
                     setError(data?.message || `GitHub API ${status}`)
                     setRepos(FALLBACK_REPOS)
                 }
+                fetched.current = true
                 setLoading(false)
             })
             .catch(err => {
@@ -51,11 +54,20 @@ export default function Projects() {
                 setError(err.message || 'Failed to load projects')
                 setRepos(FALLBACK_REPOS)
                 setLoading(false)
+                fetched.current = true
             })
     }
 
     useEffect(() => {
         fetchRepos()
+        const failsafe = setTimeout(() => {
+            if (fetched.current) return
+            fetched.current = true
+            setRepos(FALLBACK_REPOS)
+            setError('Load timed out')
+            setLoading(false)
+        }, 10000)
+        return () => clearTimeout(failsafe)
     }, [])
 
     return (
@@ -75,11 +87,19 @@ export default function Projects() {
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        style={{ textAlign: 'center', padding: '4rem' }}
+                        style={{
+                            textAlign: 'center',
+                            padding: '4rem 2rem',
+                            minHeight: '200px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}
                     >
                         <motion.span
                             animate={{ opacity: [0.5, 1, 0.5] }}
                             transition={{ duration: 1.5, repeat: Infinity }}
+                            style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}
                         >
                             Loading awesome projects...
                         </motion.span>
@@ -125,14 +145,7 @@ export default function Projects() {
                         </div>
                     </motion.div>
                 ) : (
-                    <motion.div
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true, margin: '-60px', amount: 0.1 }}
-                        variants={{
-                            visible: { transition: { staggerChildren: 0.1, delayChildren: 0.12 } },
-                            hidden: {}
-                        }}
+                    <div
                         style={{
                             display: 'grid',
                             gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))',
@@ -144,10 +157,9 @@ export default function Projects() {
                         {repos.map((repo) => (
                             <motion.div
                                 key={repo.id}
-                                variants={{
-                                    hidden: { opacity: 0, y: 56, scale: 0.92 },
-                                    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.65, ease: [0.23, 1, 0.32, 1] } }
-                                }}
+                                initial={{ opacity: 0, y: 24 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
                                 className="glass-card"
                                 style={{
                                     padding: 'clamp(1.25rem, 5vw, 2.5rem)',
@@ -205,7 +217,7 @@ export default function Projects() {
                                 </div>
                             </motion.div>
                         ))}
-                    </motion.div>
+                    </div>
                 )}
             </div>
         </section>

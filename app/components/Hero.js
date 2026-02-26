@@ -35,19 +35,19 @@ export default function Hero() {
                         className="hero-content"
                         style={{ gridColumn: '1 / 8' }}
                     >
-                        <motion.div variants={itemVariants} className="developer-tag" style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
+                        <motion.div variants={itemVariants} className="developer-tag hero-tag" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                             <span style={{ width: '40px', height: '1px', background: 'var(--accent)' }} />
                             <span style={{ color: 'var(--accent)', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', fontSize: '0.8rem' }}>
                                 Full Stack Developer
                             </span>
                         </motion.div>
 
-                        <motion.h1 variants={itemVariants} style={{ fontSize: 'clamp(3.5rem, 10vw, 6rem)', lineHeight: 1.1, marginBottom: '2.5rem', letterSpacing: '-0.05em', fontWeight: 900 }}>
+                        <motion.h1 variants={itemVariants} className="hero-title" style={{ lineHeight: 1.1, letterSpacing: '-0.05em', fontWeight: 900 }}>
                             Intelligent <br />
                             <span className="gradient-text">Experiences.</span>
                         </motion.h1>
 
-                        <motion.p variants={itemVariants} style={{ fontSize: 'clamp(1.1rem, 1.8vw, 1.3rem)', color: 'var(--text-secondary)', marginBottom: '3.5rem', maxWidth: '600px', lineHeight: 1.6, fontWeight: 400 }}>
+                        <motion.p variants={itemVariants} className="hero-intro" style={{ color: 'var(--text-secondary)', maxWidth: '600px', lineHeight: 1.6, fontWeight: 400 }}>
                             Hi, I'm <span style={{ color: 'var(--text-primary)', fontWeight: 600 }}>Kazi Shofi Ahmed</span>. I build scalable, AI-powered applications where cutting-edge technology meets intuitive design.
                         </motion.p>
 
@@ -110,7 +110,6 @@ export default function Hero() {
                                     objectFit: 'cover',
                                     width: '100%',
                                     height: 'auto',
-                                    minHeight: '320px',
                                     display: 'block',
                                     filter: 'contrast(1.05) brightness(1.05)'
                                 }}
@@ -137,7 +136,18 @@ export default function Hero() {
                     justify-content: flex-end;
                     align-items: center;
                     width: 100%;
+                    min-width: 0;
                 }
+                .hero-profile-wrap {
+                    overflow: hidden;
+                }
+                .hero-profile-wrap img {
+                    max-width: 100%;
+                    object-fit: cover;
+                }
+                .hero-tag { margin-bottom: 2rem; }
+                .hero-title { margin-bottom: 2.5rem; font-size: clamp(3.5rem, 10vw, 6rem); }
+                .hero-intro { margin-bottom: 3.5rem; font-size: clamp(1.1rem, 1.8vw, 1.3rem); }
                 
                 @keyframes floating {
                     0% { transform: translateY(0px); }
@@ -149,67 +159,113 @@ export default function Hero() {
                     .hero-section {
                         min-height: 100vh;
                         min-height: 100dvh;
-                        align-items: center;
-                        padding-top: 0.35rem !important;
-                        padding-bottom: 0.35rem !important;
+                        height: 100dvh !important;
+                        max-height: 100dvh !important;
+                        align-items: stretch !important;
+                        padding-top: 0.15rem !important;
+                        padding-bottom: 0.15rem !important;
+                        overflow: hidden !important;
+                        display: flex !important;
+                        flex-direction: column !important;
                     }
                     .hero-content-wrapper {
                         padding-top: 0 !important;
                         padding-bottom: 0 !important;
+                        flex: 1 1 0 !important;
+                        min-height: 0 !important;
+                        overflow: hidden !important;
+                        display: flex !important;
+                        flex-direction: column !important;
                     }
                     .hero-grid {
                         display: flex !important;
                         flex-direction: column-reverse !important;
-                        gap: 0.35rem !important;
+                        gap: 0 !important;
                         padding-top: 0 !important;
                         padding-bottom: 0 !important;
+                        width: 100%;
+                        flex: 1 1 0 !important;
+                        min-height: 0 !important;
                     }
 
                     .hero-content {
                         grid-column: span 12 !important;
                         text-align: center;
-                        display: flex;
-                        flex-direction: column;
+                        display: flex !important;
+                        flex-direction: column !important;
                         align-items: center;
                         margin-bottom: 0 !important;
+                        flex: 1 1 0 !important;
+                        min-height: 0 !important;
                     }
                     
                     .hero-visual {
                         grid-column: span 12 !important;
                         justify-self: center !important;
-                        margin-bottom: 0.2rem !important;
+                        margin-bottom: 0.15rem !important;
                         width: 100%;
                         justify-content: center;
+                        overflow: hidden !important;
+                        flex-shrink: 0 !important;
                     }
                     
                     .neon-border {
-                        max-width: 140px !important;
+                        width: 24px !important;
+                        max-width: 24px !important;
+                        min-width: 0 !important;
+                        height: 24px !important;
                         margin: 0 auto;
+                        padding: 2px !important;
+                        box-sizing: border-box !important;
+                        overflow: hidden !important;
                         animation: neon-pulse 4s infinite ease-in-out, floating 6s ease-in-out infinite !important;
                     }
+                    .neon-border img {
+                        width: 100% !important;
+                        max-width: 100% !important;
+                        height: 100% !important;
+                        min-height: 0 !important;
+                        max-height: 100% !important;
+                        object-fit: cover !important;
+                        display: block !important;
+                    }
 
-                    .developer-tag {
+                    .hero-tag, .developer-tag {
                         justify-content: center !important;
-                        margin-bottom: 0.25rem !important;
-                        transform: scale(0.9);
+                        margin-bottom: 0.12rem !important;
+                        transform: scale(0.88);
+                        font-size: 0.5rem !important;
+                        flex-shrink: 0 !important;
                     }
                     
-                    h1 {
-                        margin-bottom: 0.25rem !important;
-                        font-size: 1.9rem !important;
-                        line-height: 1.1 !important;
+                    .hero-title, h1 {
+                        margin-bottom: 0.12rem !important;
+                        font-size: 0.8rem !important;
+                        line-height: 1.06 !important;
+                        flex-shrink: 0 !important;
                     }
                     
-                    .hero-content p {
-                        margin-bottom: 0.4rem !important;
-                        font-size: 0.9rem !important;
+                    .hero-intro, .hero-content p {
+                        margin-bottom: 0.15rem !important;
+                        font-size: 0.58rem !important;
+                        line-height: 1.5 !important;
                         max-width: 90% !important;
+                        flex-shrink: 1 !important;
+                        min-height: 0 !important;
                     }
 
                     .cta-group {
                         justify-content: center !important;
                         width: 100%;
-                        gap: 0.5rem !important;
+                        gap: 0.35rem !important;
+                        margin-top: auto !important;
+                        flex-shrink: 0 !important;
+                        padding-top: 0.75rem !important;
+                        padding-bottom: 0.25rem !important;
+                    }
+                    button.primary {
+                        padding: 0.45rem 0.75rem !important;
+                        font-size: 0.72rem !important;
                     }
 
                     p {
@@ -218,99 +274,149 @@ export default function Hero() {
                     }
                 }
 
-                /* Mobile: fit hero + Explore/Get in touch in one viewport without scrolling */
+                /* Mobile: tiny image, CTAs pinned to bottom so always visible */
                 @media (max-width: 480px) {
                     .hero-section {
-                        padding-top: 0.5rem !important;
-                        padding-bottom: 0.5rem !important;
+                        padding-top: 0.1rem !important;
+                        padding-bottom: 0 !important;
                         min-height: 100dvh !important;
-                        align-items: center !important;
+                        height: 100dvh !important;
+                        max-height: 100dvh !important;
+                        align-items: stretch !important;
+                        overflow: hidden !important;
                     }
                     .hero-content-wrapper {
                         padding-top: 0 !important;
                         padding-bottom: 0 !important;
+                        flex: 1 1 0 !important;
+                        min-height: 0 !important;
+                        overflow: hidden !important;
                     }
                     .hero-grid {
-                        gap: 0.25rem !important;
+                        gap: 0 !important;
                         padding-top: 0 !important;
+                        padding-bottom: 0 !important;
+                        min-height: 0 !important;
+                    }
+                    .hero-visual {
+                        overflow: hidden !important;
+                        justify-content: center !important;
+                        margin-bottom: 0.1rem !important;
                     }
                     .neon-border {
-                        max-width: 88px !important;
-                        min-width: 72px !important;
-                        padding: 6px !important;
+                        width: 20px !important;
+                        max-width: 20px !important;
+                        min-width: 0 !important;
+                        height: 20px !important;
+                        padding: 2px !important;
+                        box-sizing: border-box !important;
+                        overflow: hidden !important;
                     }
                     .neon-border img {
-                        min-height: 96px !important;
+                        width: 100% !important;
+                        max-width: 100% !important;
+                        height: 100% !important;
+                        min-height: 0 !important;
+                        max-height: 100% !important;
+                        object-fit: cover !important;
+                        display: block !important;
                     }
-                    .developer-tag {
-                        margin-bottom: 0.2rem !important;
-                        font-size: 0.65rem !important;
+                    .hero-tag, .developer-tag {
+                        margin-bottom: 0.08rem !important;
+                        font-size: 0.4rem !important;
                     }
                     .developer-tag span:first-of-type {
-                        width: 20px !important;
+                        width: 5px !important;
                     }
-                    h1 {
-                        font-size: 1.4rem !important;
-                        margin-bottom: 0.2rem !important;
-                        line-height: 1.12 !important;
+                    .hero-title, h1 {
+                        font-size: 0.65rem !important;
+                        margin-bottom: 0.08rem !important;
+                        line-height: 1.04 !important;
                     }
-                    .hero-content p {
-                        font-size: 0.8rem !important;
-                        margin-bottom: 0.35rem !important;
-                        line-height: 1.4 !important;
+                    .hero-intro, .hero-content p {
+                        font-size: 0.46rem !important;
+                        margin-bottom: 0.08rem !important;
+                        line-height: 1.45 !important;
                         display: -webkit-box !important;
                         -webkit-line-clamp: 2 !important;
                         -webkit-box-orient: vertical !important;
                         overflow: hidden !important;
                     }
                     .cta-group {
-                        flex-direction: row;
-                        flex-wrap: wrap;
-                        justify-content: center;
-                        gap: 0.4rem !important;
-                        margin-top: 0.15rem !important;
+                        flex-direction: row !important;
+                        flex-wrap: wrap !important;
+                        justify-content: center !important;
+                        gap: 0.35rem !important;
+                        margin-top: auto !important;
+                        margin-bottom: 0 !important;
+                        padding-top: 0.6rem !important;
+                        padding-bottom: 0.5rem !important;
+                        flex-shrink: 0 !important;
                     }
                     button.primary {
-                        width: auto;
-                        padding: 0.5rem 0.85rem;
-                        font-size: 0.8rem;
+                        width: auto !important;
+                        padding: 0.4rem 0.6rem !important;
+                        font-size: 0.62rem !important;
+                    }
+                    .hover-link {
+                        font-size: 0.62rem !important;
+                        min-height: 38px !important;
+                        min-width: 38px !important;
                     }
                 }
 
-                /* Short viewports: extra compact so Explore + Get in touch fit without scroll */
-                @media (max-width: 1024px) and (max-height: 800px) {
+                /* Short viewports: smallest image, CTAs always at bottom */
+                @media (max-width: 1024px) and (max-height: 700px) {
                     .hero-section {
-                        padding-top: 0.25rem !important;
-                        padding-bottom: 0.25rem !important;
+                        padding-top: 0.08rem !important;
+                        padding-bottom: 0 !important;
+                        height: 100dvh !important;
+                        max-height: 100dvh !important;
+                        overflow: hidden !important;
+                    }
+                    .hero-visual {
+                        overflow: hidden !important;
+                        margin-bottom: 0.06rem !important;
                     }
                     .hero-grid {
-                        gap: 0.2rem !important;
+                        gap: 0 !important;
                     }
                     .neon-border {
-                        max-width: 100px !important;
-                        padding: 6px !important;
+                        width: 20px !important;
+                        max-width: 20px !important;
+                        height: 20px !important;
+                        padding: 2px !important;
+                        overflow: hidden !important;
                     }
                     .neon-border img {
-                        min-height: 88px !important;
+                        height: 100% !important;
+                        min-height: 0 !important;
+                        max-height: 100% !important;
+                        object-fit: cover !important;
                     }
-                    .developer-tag {
-                        margin-bottom: 0.15rem !important;
+                    .hero-tag, .developer-tag {
+                        margin-bottom: 0.06rem !important;
+                        font-size: 0.38rem !important;
                     }
-                    h1 {
-                        font-size: 1.35rem !important;
-                        margin-bottom: 0.15rem !important;
+                    .hero-title, h1 {
+                        font-size: 0.62rem !important;
+                        margin-bottom: 0.06rem !important;
                     }
-                    .hero-content p {
-                        font-size: 0.78rem !important;
-                        margin-bottom: 0.25rem !important;
+                    .hero-intro, .hero-content p {
+                        font-size: 0.44rem !important;
+                        margin-bottom: 0.06rem !important;
+                        line-height: 1.4 !important;
                         -webkit-line-clamp: 2 !important;
                     }
                     .cta-group {
-                        gap: 0.35rem !important;
+                        gap: 0.28rem !important;
+                        margin-top: auto !important;
+                        padding-top: 0.5rem !important;
+                        padding-bottom: 0.3rem !important;
                     }
                     button.primary {
-                        padding: 0.5rem 0.8rem;
-                        font-size: 0.78rem;
+                        padding: 0.35rem 0.5rem !important;
+                        font-size: 0.58rem !important;
                     }
                 }
             `}</style>

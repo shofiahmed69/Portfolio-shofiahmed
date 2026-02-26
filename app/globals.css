@@ -219,8 +219,8 @@ section {
 }
 @media (max-width: 480px) {
   section.hero-section {
-    padding-top: 0.25rem;
-    padding-bottom: 0.25rem;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
   }
 }
 
@@ -392,6 +392,21 @@ section {
 @media (max-width: 768px) {
   .container {
     padding: 0 1.25rem;
+  }
+}
+
+/* Hero: ensure mobile fits in one viewport - container and section minimal padding */
+@media (max-width: 1024px) {
+  section.hero-section .container.hero-content-wrapper {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    min-height: 0 !important;
+  }
+}
+@media (max-width: 480px) {
+  section.hero-section .container.hero-content-wrapper {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
   }
 }
 
