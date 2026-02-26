@@ -27,16 +27,18 @@ export default function Projects() {
     const fetchRepos = () => {
         setLoading(true)
         setError(null)
-        fetch(REPOS_API, { headers: getGitHubHeaders() })
+        const controller = new AbortController()
+        const timeout = setTimeout(() => controller.abort(), 12000)
+        fetch(REPOS_API, { headers: getGitHubHeaders(), signal: controller.signal })
             .then(res => res.json().then(data => ({ ok: res.ok, status: res.status, data })))
             .then(({ ok, status, data }) => {
+                clearTimeout(timeout)
                 if (ok && Array.isArray(data)) {
-                    // Show all repos (originals first, then forks)
                     const nonForks = data.filter(repo => !repo.fork)
                     const list = nonForks.length > 0 ? nonForks : data
                     setRepos(list.length > 0 ? list : FALLBACK_REPOS)
-                } else if (Array.isArray(data)) {
-                    setRepos(data.length > 0 ? data : FALLBACK_REPOS)
+                } else if (Array.isArray(data) && data.length > 0) {
+                    setRepos(data)
                 } else {
                     setError(data?.message || `GitHub API ${status}`)
                     setRepos(FALLBACK_REPOS)
@@ -44,7 +46,8 @@ export default function Projects() {
                 setLoading(false)
             })
             .catch(err => {
-                console.error(err)
+                clearTimeout(timeout)
+                if (err.name !== 'AbortError') console.error(err)
                 setError(err.message || 'Failed to load projects')
                 setRepos(FALLBACK_REPOS)
                 setLoading(false)
@@ -60,10 +63,10 @@ export default function Projects() {
             <div className="container">
                 <motion.h2
                     className="section-title"
-                    initial={{ opacity: 0, y: 24 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '-40px' }}
-                    transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+                    initial={{ opacity: 0, y: 48, scale: 0.96 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    viewport={{ once: true, margin: '-80px', amount: 0.2 }}
+                    transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
                 >
                     Latest <span className="gradient-text">Projects</span>
                 </motion.h2>
@@ -124,25 +127,26 @@ export default function Projects() {
                 ) : (
                     <motion.div
                         initial="hidden"
-                        animate="visible"
-                        viewport={{ once: true, margin: '-80px' }}
+                        whileInView="visible"
+                        viewport={{ once: true, margin: '-60px', amount: 0.1 }}
                         variants={{
-                            visible: { transition: { staggerChildren: 0.08, delayChildren: 0.15 } },
+                            visible: { transition: { staggerChildren: 0.1, delayChildren: 0.12 } },
                             hidden: {}
                         }}
                         style={{
                             display: 'grid',
                             gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 300px), 1fr))',
                             gap: '2rem',
-                            width: '100%'
+                            width: '100%',
+                            minHeight: '120px'
                         }}
                     >
-                        {repos.map((repo, index) => (
+                        {repos.map((repo) => (
                             <motion.div
                                 key={repo.id}
                                 variants={{
-                                    hidden: { opacity: 0, y: 50 },
-                                    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.23, 1, 0.32, 1] } }
+                                    hidden: { opacity: 0, y: 56, scale: 0.92 },
+                                    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.65, ease: [0.23, 1, 0.32, 1] } }
                                 }}
                                 className="glass-card"
                                 style={{

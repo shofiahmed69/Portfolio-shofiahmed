@@ -12,9 +12,10 @@ export default function Footer() {
         }}>
             <div className="container" style={{ textAlign: 'center' }}>
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 44 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, margin: '-80px', amount: 0.2 }}
+                    transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
                 >
                     <h2 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', marginBottom: '1rem', fontWeight: 900, letterSpacing: '-0.04em' }}>
                         Let's Build Something <span className="gradient-text">Great</span>
@@ -27,9 +28,9 @@ export default function Footer() {
                         style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap' }}
                         initial="hidden"
                         whileInView="visible"
-                        viewport={{ once: true }}
+                        viewport={{ once: true, amount: 0.3 }}
                         variants={{
-                            visible: { transition: { staggerChildren: 0.15 } },
+                            visible: { transition: { staggerChildren: 0.18, delayChildren: 0.1 } },
                             hidden: {}
                         }}
                     >
@@ -38,7 +39,10 @@ export default function Footer() {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="nav-link btn-social btn-github"
-                            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+                            variants={{
+                                hidden: { opacity: 0, y: 32, scale: 0.9 },
+                                visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5 } }
+                            }}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.98 }}
                         >
@@ -50,7 +54,10 @@ export default function Footer() {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="nav-link btn-social btn-linkedin"
-                            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+                            variants={{
+                                hidden: { opacity: 0, y: 32, scale: 0.9 },
+                                visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5 } }
+                            }}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.98 }}
                         >
@@ -62,10 +69,10 @@ export default function Footer() {
 
                 <motion.p
                     style={{ marginTop: '6rem', fontSize: '0.85rem', color: 'var(--text-muted)' }}
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
+                    transition={{ duration: 0.6, delay: 0.35 }}
                 >
                     © {new Date().getFullYear()} Kazi Shofi Ahmed. Built with Passion, Next.js & Framer Motion.
                 </motion.p>

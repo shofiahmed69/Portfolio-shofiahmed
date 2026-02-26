@@ -5,8 +5,10 @@ import Skills from './components/Skills'
 import Projects from './components/Projects'
 import Footer from './components/Footer'
 
-const viewport = { once: true, margin: '-80px', amount: 0.1 }
-const sectionTransition = { duration: 0.7, ease: [0.23, 1, 0.32, 1] }
+const viewport = { once: true, margin: '-60px', amount: 0.15 }
+const sectionTransition = { duration: 0.85, ease: [0.23, 1, 0.32, 1] }
+const sectionInitial = { opacity: 0, y: 56 }
+const sectionAnimate = { opacity: 1, y: 0 }
 
 export default function Home() {
   return (
@@ -24,8 +26,8 @@ export default function Home() {
       </motion.div>
 
       <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={sectionInitial}
+        whileInView={sectionAnimate}
         viewport={viewport}
         transition={sectionTransition}
       >
@@ -33,8 +35,8 @@ export default function Home() {
       </motion.div>
 
       <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={sectionInitial}
+        whileInView={sectionAnimate}
         viewport={viewport}
         transition={sectionTransition}
       >
@@ -42,8 +44,8 @@ export default function Home() {
       </motion.div>
 
       <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={sectionInitial}
+        whileInView={sectionAnimate}
         viewport={viewport}
         transition={sectionTransition}
       >

@@ -25,10 +25,10 @@ export default function Skills() {
         <section id="skills" style={{ position: 'relative', overflow: 'hidden' }}>
             <div className="container">
                 <motion.div
-                    initial={{ opacity: 0, y: 24, scale: 0.98 }}
+                    initial={{ opacity: 0, y: 48, scale: 0.94 }}
                     whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                    viewport={{ once: true, margin: '-40px' }}
-                    transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
+                    viewport={{ once: true, margin: '-80px', amount: 0.2 }}
+                    transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
                 >
                     <h2 className="section-title">Technical <span className="gradient-text">Expertise</span></h2>
                 </motion.div>
@@ -36,9 +36,9 @@ export default function Skills() {
                 <motion.div
                     initial="hidden"
                     whileInView="visible"
-                    viewport={{ once: true, margin: '-50px' }}
+                    viewport={{ once: true, margin: '-60px', amount: 0.12 }}
                     variants={{
-                        visible: { transition: { staggerChildren: 0.06, delayChildren: 0.1 } },
+                        visible: { transition: { staggerChildren: 0.08, delayChildren: 0.15 } },
                         hidden: {}
                     }}
                     style={{
@@ -52,8 +52,8 @@ export default function Skills() {
                         <motion.div
                             key={skill.name}
                             variants={{
-                                hidden: { opacity: 0, y: 40, scale: 0.9 },
-                                visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: [0.23, 1, 0.32, 1] } }
+                                hidden: { opacity: 0, y: 52, scale: 0.88 },
+                                visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.65, ease: [0.23, 1, 0.32, 1] } }
                             }}
                             className="glass-card"
                             style={{
