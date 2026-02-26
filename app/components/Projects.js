@@ -58,7 +58,15 @@ export default function Projects() {
     return (
         <section id="projects">
             <div className="container">
-                <h2 className="section-title">Latest <span className="gradient-text">Projects</span></h2>
+                <motion.h2
+                    className="section-title"
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: '-40px' }}
+                    transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+                >
+                    Latest <span className="gradient-text">Projects</span>
+                </motion.h2>
 
                 {loading ? (
                     <motion.div

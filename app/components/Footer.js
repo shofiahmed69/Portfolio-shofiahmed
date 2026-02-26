@@ -60,9 +60,15 @@ export default function Footer() {
                     </motion.div>
                 </motion.div>
 
-                <p style={{ marginTop: '6rem', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                <motion.p
+                    style={{ marginTop: '6rem', fontSize: '0.85rem', color: 'var(--text-muted)' }}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                >
                     © {new Date().getFullYear()} Kazi Shofi Ahmed. Built with Passion, Next.js & Framer Motion.
-                </p>
+                </motion.p>
             </div>
         </footer>
     )

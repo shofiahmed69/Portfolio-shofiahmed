@@ -25,10 +25,10 @@ export default function Skills() {
         <section id="skills" style={{ position: 'relative', overflow: 'hidden' }}>
             <div className="container">
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
+                    initial={{ opacity: 0, y: 24, scale: 0.98 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    viewport={{ once: true, margin: '-40px' }}
+                    transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
                 >
                     <h2 className="section-title">Technical <span className="gradient-text">Expertise</span></h2>
                 </motion.div>
